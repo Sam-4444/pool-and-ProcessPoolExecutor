@@ -1,0 +1,25 @@
+from multiprocessing import Process,Pool,cpu_count
+from concurrent.futures import ProcessPoolExecutor
+import time
+
+
+def show(z,delay=.01):
+
+        print(f"starting {z}")
+        time.sleep(delay)
+        print(f"ending {z}")
+
+def main():
+    names = ["one", "two", "three"]
+    pool=Pool(processes=2)
+    pool.map(show,names)
+    pool.close()
+    pool.join()
+    print(cpu_count())
+
+    with ProcessPoolExecutor() as executor:
+        names=["one","two","three"]
+        executor.map(show,names)
+
+if __name__=="__main__":
+    main()
